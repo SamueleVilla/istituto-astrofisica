@@ -1,0 +1,12 @@
+<div class="row" [formGroup]="form" xmlns="http://www.w3.org/1999/html">
+  <div class="col" [ngSwitch]="input.controlType">
+    <div *ngSwitchCase="'textbox'" class="form-group">
+      <label [for]="input.key">{{ input.label }}</label>
+      <input
+        [type]="input.type"
+        [id]="input.key"
+        [formControlName]="input.key"
+        class="form-control">
+    </div>
+  </div>
+</div>

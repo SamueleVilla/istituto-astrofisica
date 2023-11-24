@@ -4,7 +4,7 @@ import { TextboxInput } from "../input/textbox-input";
 import { SelectInput } from "../input/select-input";
 import { CheckBoxInput } from "../input/check-box-input";
 import { DatetimeInput } from "../input/datetime-input";
-import { CelestialOption, CelestialType } from "./types/celestial.interface";
+import { CelestialOption, CelestialType } from "../types/celestial.interface";
 
 @Injectable({
   providedIn: "root"
