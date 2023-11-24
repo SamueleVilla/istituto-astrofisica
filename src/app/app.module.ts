@@ -5,8 +5,8 @@ import { AppComponent } from "./app.component";
 import { CelestialFormComponent } from "./celestial-form/celestial-form.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CelestialDataInputComponent } from "./celestial-form/celestial-data-input/celestial-data-input.component";
-import { CelestialService } from "./celestial-form/celestial.service";
-import { InputControlService } from "./input/input-control.service";
+import { CelestialService } from "./celestial-form/services/celestial.service";
+import { InputControlService } from "./celestial-form/services/input-control.service";
 
 @NgModule({
   declarations: [

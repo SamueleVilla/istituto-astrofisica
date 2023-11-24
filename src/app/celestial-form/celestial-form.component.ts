@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { CelestialService } from "./celestial.service";
-import { InputBase } from "../input/input-base";
-import { InputControlService } from "../input/input-control.service";
-import { CelestialOption, CelestialType } from "../types/celestial.interface";
+import { CelestialService } from "./services/celestial.service";
+import { BaseInput } from "./input/base-input";
+import { InputControlService } from "./services/input-control.service";
+import { CelestialOption, CelestialType } from "./types/celestial.interface";
 
 @Component({
   selector: "app-celestial-form",
@@ -15,7 +15,7 @@ export class CelestialFormComponent implements OnInit {
   celestialForm: FormGroup;
   celestialDataInputsForm: FormGroup;
   celestialOptions: CelestialOption[] | null;
-  celestialInputs: InputBase<string>[];
+  celestialInputs: BaseInput<string>[];
 
   constructor(private cs: CelestialService, private ics: InputControlService) {
 

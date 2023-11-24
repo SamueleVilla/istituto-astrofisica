@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { InputBase } from "../input/input-base";
+import { BaseInput } from "../input/base-input";
 import { TextboxInput } from "../input/textbox-input";
 import { SelectInput } from "../input/select-input";
 import { CheckBoxInput } from "../input/check-box-input";
@@ -11,7 +11,7 @@ import { CelestialOption, CelestialType } from "../types/celestial.interface";
 })
 export class CelestialService {
 
-  private allCelestialInputs: InputBase<string>[] = [
+  private allCelestialInputs: BaseInput<string>[] = [
     new DatetimeInput({
       key: "datetime",
       label: "Data avvistamento",
@@ -118,8 +118,8 @@ export class CelestialService {
     })
   ];
 
-  private getInputByKeys(keys: string[]): InputBase<string>[] {
-    const inputs: InputBase<string>[] = [];
+  private getInputByKeys(keys: string[]): BaseInput<string>[] {
+    const inputs: BaseInput<string>[] = [];
     keys.forEach(key => {
       inputs.push(this.allCelestialInputs.find(input => input.key === key));
     });
@@ -128,7 +128,7 @@ export class CelestialService {
   }
 
   getCelestialInputs(celestialType: CelestialType) {
-    const celestialDataInputs: { [key: string]: InputBase<string>[] } = {
+    const celestialDataInputs: { [key: string]: BaseInput<string>[] } = {
       "PLANET": this.getInputByKeys([
         "datetime",
         "hourAngle",
