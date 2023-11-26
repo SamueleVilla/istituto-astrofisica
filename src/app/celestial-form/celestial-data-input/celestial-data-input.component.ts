@@ -1,7 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { BaseInput } from "../input/base-input";
 import { FormGroup } from "@angular/forms";
-import { immediateProvider } from "rxjs/internal/scheduler/immediateProvider";
 
 @Component({
   selector: "app-celestial-data-input",
@@ -14,8 +13,18 @@ export class CelestialDataInputComponent {
   @Input() input!: BaseInput<string>;
 
   get isValid(): boolean {
-    return this.form.controls[this.input.key].valid;
+    return this.form.get(this.input.key).valid && ((this.form.get(this.input.key).dirty || this.form.get(this.input.key).touched));
   }
 
-  protected readonly immediateProvider = immediateProvider;
+  get isInvalid(): boolean {
+    return this.form.get(this.input.key).invalid && this.form.get(this.input.key).errors && ((this.form.get(this.input.key).dirty || this.form.get(this.input.key).touched));
+  }
+
+  get isRequired(): boolean {
+    return this.form.get(this.input.key).hasError("required");
+  }
+
+  onChange(value: string, formControlName: string) {
+    this.form.get(formControlName).setValue(value);
+  }
 }

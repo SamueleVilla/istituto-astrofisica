@@ -1,69 +1,68 @@
 import { Injectable } from "@angular/core";
 import { BaseInput } from "../input/base-input";
-import { TextboxInput } from "../input/textbox-input";
 import { SelectInput } from "../input/select-input";
-import { CheckBoxInput } from "../input/check-box-input";
-import { DatetimeInput } from "../input/datetime-input";
+import { RadioInput } from "../input/radio-input";
 import { CelestialOption, CelestialType } from "../types/celestial.interface";
+import { NumericTextboxInput } from "../input/numeric-textbox-input";
+import { TextboxInput } from "../input/textbox-input";
 
 @Injectable({
   providedIn: "root"
 })
 export class CelestialService {
 
-  private allCelestialInputs: BaseInput<string>[] = [
-    new DatetimeInput({
+  private availableCelestialInputs: BaseInput<string>[] = [
+    new TextboxInput({
       key: "datetime",
+      type: "datetime-local",
       label: "Data avvistamento",
       order: 1,
       required: true
     }),
-    new TextboxInput({
+    new NumericTextboxInput({
         key: "hourAngle",
-        type: "number",
         label: "Angolo Orario",
+        unit: "(°)",
         order: 2,
-        min: 0,
         max: 360,
         required: true
       }
     ),
-    new TextboxInput({
+    new NumericTextboxInput({
         key: "declination",
-        type: "number",
         label: "Declinazione",
+        unit: "(°)",
         order: 3,
         min: -90,
         max: 90,
         required: false
       }
     ),
-    new TextboxInput({
+    new NumericTextboxInput({
         key: "temperature",
-        type: "number",
         label: "Temperatura",
+        unit: "(K)",
         order: 4,
-        min: 0,
         max: 300_000,
         required: false
       }
     ),
-    new TextboxInput({
+    new NumericTextboxInput({
         key: "mass",
         type: "number",
         label: "Massa",
+        unit: "(M⊙)",
         order: 5,
         min: 1,
         max: 100,
         required: false
       }
     ),
-    new TextboxInput({
+    new NumericTextboxInput({
         key: "radius",
-        type: "number",
         label: "Raggio",
+        unit: "(R⊙)",
         order: 6,
-        min: 1,
         max: 100,
         required: false
       }
@@ -83,34 +82,31 @@ export class CelestialService {
         required: true
       }
     ),
-    new TextboxInput({
+    new NumericTextboxInput({
       key: "orbitalInclination",
-      type: "number",
       label: "Inclinazione Orbitale",
-      min: 0,
       max: 180,
       order: 8,
       required: false
     }),
-    new TextboxInput({
+    new NumericTextboxInput({
       key: "albedo",
-      type: "number",
       label: "Albedo",
-      min: 0,
+      unit: "(%)",
       max: 100,
       order: 9,
       required: false
     }),
-    new TextboxInput({
+    new NumericTextboxInput({
       key: "distance",
-      type: "number",
       label: "Distanza",
+      unit: "(UA)",
       min: 1,
       max: 5_881_413_000_000_000,
       order: 10,
       required: true
     }),
-    new CheckBoxInput({
+    new RadioInput({
       key: "solarSystem",
       label: "Sistema solare",
       order: 11,
@@ -121,7 +117,7 @@ export class CelestialService {
   private getInputByKeys(keys: string[]): BaseInput<string>[] {
     const inputs: BaseInput<string>[] = [];
     keys.forEach(key => {
-      inputs.push(this.allCelestialInputs.find(input => input.key === key));
+      inputs.push(this.availableCelestialInputs.find(input => input.key === key));
     });
 
     return inputs.sort((a, b) => a.order - b.order);
@@ -165,7 +161,8 @@ export class CelestialService {
         "declination",
         "mass",
         "radius"]),
-      "UFO": this.getInputByKeys(["datetime",
+      "UFO": this.getInputByKeys([
+        "datetime",
         "hourAngle",
         "declination"
       ])

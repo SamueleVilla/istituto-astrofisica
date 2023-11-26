@@ -1,19 +1,18 @@
 import { Injectable } from "@angular/core";
 import { BaseInput } from "../input/base-input";
-import { FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, ValidatorFn, Validators } from "@angular/forms";
+import { NumericTextboxInput } from "../input/numeric-textbox-input";
 
 @Injectable({
   providedIn: "root"
 })
 export class InputControlService {
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
   }
 
   toFormGroup(inputs: BaseInput<string>[]) {
-    const group: {
-      [key: string]: FormControl
-    } = {};
+    const group = this.fb.group({});
 
     const getValidators = (input: BaseInput<string>) => {
       const validators: ValidatorFn[] = [];
@@ -22,22 +21,17 @@ export class InputControlService {
         validators.push(Validators.required);
       }
 
-      if (input.min) {
-        validators.push(Validators.min(input.min));
-      }
-
-      if (input.max) {
-        validators.push(Validators.max(input.max));
+      if (input instanceof NumericTextboxInput) {
+        validators.push(Validators.min(input.min), Validators.max(input.max), Validators.pattern(input.numberRegex));
       }
 
       return validators;
     };
 
     inputs.forEach(input => {
-      group[input.key] = new FormControl(input.value || "",
-        getValidators(input));
+      group.addControl(input.key, new FormControl(input.value || "", getValidators(input)));
     });
 
-    return new FormGroup(group);
+    return group;
   }
 }

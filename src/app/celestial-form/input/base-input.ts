@@ -2,9 +2,8 @@ export class BaseInput<T> {
   value: T | undefined;
   key: string;
   label: string;
+  unit: string;
   required: boolean;
-  max?: number | null;
-  min?: number | null;
   order: number;
   controlType: string;
   type: string;
@@ -14,9 +13,8 @@ export class BaseInput<T> {
     value?: T;
     key?: string;
     label?: string;
+    unit?: string;
     required?: boolean;
-    max?: number;
-    min?: number;
     order?: number;
     controlType?: string;
     type?: string;
@@ -25,9 +23,8 @@ export class BaseInput<T> {
     this.value = options.value;
     this.key = options.key || "";
     this.label = options.label || "";
+    this.unit = options.unit || "";
     this.required = !!options.required;
-    this.max = options.max || null;
-    this.min = options.min || null;
     this.order = options.order === undefined ? 1 : options.order;
     this.controlType = options.controlType || "";
     this.type = options.type || "";
