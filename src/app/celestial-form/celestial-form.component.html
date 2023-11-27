@@ -7,7 +7,10 @@
       <fieldset>
         <legend>Categoria corpo celeste</legend>
         <div class="form-group mb-2">
-          <label for="celestial-select" class="form-label">Corpo celeste</label>
+          <label for="celestial-select" class="form-label">
+            Corpo celeste
+            <span class="text-danger" *ngIf="isRequiredField('celestialType')">*</span>
+          </label>
           <select
             id="celestial-select"
             class="form-select"

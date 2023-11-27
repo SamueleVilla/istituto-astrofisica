@@ -64,10 +64,17 @@ export class CelestialFormComponent implements OnInit {
 
   onReset(): void {
     this.celestialForm.reset();
+    this.celestialForm.removeControl("celestialData");
+    this.celestialInputs = [];
+  }
+
+  isRequiredField(field: string): boolean {
+    return this.celestialForm.get(field).errors && this.celestialForm.get(field).hasError("required");
   }
 
   get isFormValid(): boolean {
     return this.celestialForm.valid;
   }
+
 
 }
